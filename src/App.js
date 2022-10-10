@@ -1,9 +1,8 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
-import Users from "./components/Users";
 import { AuthProvider } from "./contexts/AuthProvider";
 import { CanvasProvider } from "./contexts/CanvasContext";
 import Boards from "./pages/Boards";
@@ -41,7 +40,7 @@ function App() {
                 </CanvasProvider>
               </Switch>
             </Router>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           </QueryClientProvider>
         </AuthProvider>
       </ChakraProvider>
