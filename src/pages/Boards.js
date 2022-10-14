@@ -6,59 +6,79 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { Link as RouterLink } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { CreateCanvasModal } from "../components/modals/CreateCanvasModal";
+import { useQuery } from "@tanstack/react-query";
+
+function fetchCurrentUser(axiosPrivate) {
+  return axiosPrivate.get(`/api/users/current-user`);
+}
+
+function fetchCanvases(axiosPrivate) {
+  return axiosPrivate.get(`/api/canvas`);
+}
 
 function Boards() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [owner, setOwner] = React.useState(null);
-  const [canvases, setCanvases] = React.useState([]);
+  // const [owner, setOwner] = React.useState(null);
+  // const [canvases, setCanvases] = React.useState([]);
 
   const axiosPrivate = useAxiosPrivate();
 
-  React.useEffect(() => {
-    async function fetchCurrentUser() {
-      try {
-        const response = await axiosPrivate.get(`/api/users/current-user`);
+  const currentUserQuery = useQuery(["currentUser"], () =>
+    fetchCurrentUser(axiosPrivate)
+  );
 
-        console.log("cureent user", response.data);
+  const canvasesQuery = useQuery(["canvases"], () =>
+    fetchCanvases(axiosPrivate)
+  );
 
-        if (response) {
-          setOwner(response.data);
-        }
-      } catch (error) {
-        // TODO: handle errors
-        if (error.response) {
-          console.log("hell", error.response);
-          console.log(error.response.status);
-          console.log(error.response.data.name);
-        }
-        alert(error);
-      }
-    }
-    fetchCurrentUser();
-  }, []);
+  const currentUser = currentUserQuery?.data?.data;
+  const canvases = canvasesQuery?.data?.data;
 
-  React.useEffect(() => {
-    async function fetchCanvases() {
-      try {
-        const response = await axiosPrivate.get(`/api/canvas`);
+  // React.useEffect(() => {
+  //   async function fetchCurrentUser() {
+  //     try {
+  //       const response = await axiosPrivate.get(`/api/users/current-user`);
 
-        console.log("canvas rs", response.data);
+  //       console.log("cureent user", response.data);
 
-        if (response) {
-          setCanvases(response.data);
-        }
-      } catch (error) {
-        // TODO: handle errors
-        if (error.response) {
-          console.log("hell", error.response);
-          console.log(error.response.status);
-          console.log(error.response.data.name);
-        }
-        alert(error);
-      }
-    }
-    fetchCanvases();
-  }, []);
+  //       if (response) {
+  //         setOwner(response.data);
+  //       }
+  //     } catch (error) {
+  //       // TODO: handle errors
+  //       if (error.response) {
+  //         console.log("hell", error.response);
+  //         console.log(error.response.status);
+  //         console.log(error.response.data.name);
+  //       }
+  //       alert(error);
+  //     }
+  //   }
+  //   fetchCurrentUser();
+  // }, []);
+
+  // React.useEffect(() => {
+  //   async function fetchCanvases() {
+  //     try {
+  //       const response = await axiosPrivate.get(`/api/canvas`);
+
+  //       console.log("canvas rs", response.data);
+
+  //       if (response) {
+  //         setCanvases(response.data);
+  //       }
+  //     } catch (error) {
+  //       // TODO: handle errors
+  //       if (error.response) {
+  //         console.log("hell", error.response);
+  //         console.log(error.response.status);
+  //         console.log(error.response.data.name);
+  //       }
+  //       alert(error);
+  //     }
+  //   }
+  //   fetchCanvases();
+  // }, []);
 
   return (
     <Box px="56px" py="48px">
@@ -70,11 +90,17 @@ function Boards() {
             <Stack direction="row" alignItems="center" spacing="4">
               <Avatar
                 size="lg"
-                bg={owner?.color}
-                name={owner ? `${owner?.firstName} ${owner?.lastName}` : null}
+                bg={currentUser?.color}
+                name={
+                  currentUser
+                    ? `${currentUser?.firstName} ${currentUser?.lastName}`
+                    : null
+                }
               />
               <Text fontWeight="semibold" textTransform="capitalize">
-                {owner ? `${owner?.firstName} ${owner?.lastName}` : null}
+                {currentUser
+                  ? `${currentUser?.firstName} ${currentUser?.lastName}`
+                  : null}
               </Text>
             </Stack>
           </WrapItem>
