@@ -46,8 +46,14 @@ function Sketch() {
     useCanvas();
 
   React.useLayoutEffect(() => {
+    console.log("useLayoutEffect");
     prepareCanvas(currentUser?.color, currentCanvas?.imgBase64);
-  }, [currentUser, params, currentCanvas]);
+  }, [
+    currentUser?.color,
+    params?.sketchId,
+    currentCanvas?.imgBase64,
+    prepareCanvas,
+  ]);
 
   return (
     <Box bgColor="#F5F5F5" height="100vh">

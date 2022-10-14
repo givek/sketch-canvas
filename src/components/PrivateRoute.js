@@ -23,7 +23,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     }
 
     auth ? setIsLoading(false) : verifyRefreshToken();
-  }, []);
+  }, [auth, setIsLoading, refresh]);
 
   return (
     <Route

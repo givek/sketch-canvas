@@ -14,7 +14,8 @@ export const CanvasProvider = ({ children }) => {
     axiosPrivate.patch(`api/canvas`, newCanvas)
   );
 
-  const prepareCanvas = (strokeStyle, currentCanvas) => {
+  const prepareCanvas = React.useCallback((strokeStyle, currentCanvas) => {
+    console.log("Prepare Canvas");
     const canvas = canvasRef.current;
     canvas.width = 1120 * 2;
     canvas.height = 767 * 2;
@@ -25,7 +26,7 @@ export const CanvasProvider = ({ children }) => {
     context.scale(2, 2);
     context.lineCap = "round";
     // context.strokeStyle = "black";
-    console.log("color", strokeStyle);
+    // console.log("color", strokeStyle);
     context.strokeStyle = strokeStyle ? strokeStyle : "black";
     context.lineWidth = 3;
     contextRef.current = context;
@@ -42,7 +43,7 @@ export const CanvasProvider = ({ children }) => {
 
       image.src = currentCanvas;
     }
-  };
+  }, []);
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
