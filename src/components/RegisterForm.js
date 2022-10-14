@@ -5,7 +5,7 @@ import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
 import { FormikControl } from "./FormikControl";
 import { ButtonPrimary } from "./ButtonPrimary";
-import { Link as RouterLink, useHistory, useLocation } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import axios from "../api/axios";
 
 const styles = {
@@ -81,7 +81,7 @@ export const RegisterForm = () => {
     >
       <Form>
         <FormLabel as="legend" fontSize="22px" mb="28px">
-          Create your fehler account
+          Create your naya account
         </FormLabel>
         <Stack spacing={10}>
           <FormikControl
