@@ -22,7 +22,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       }
     }
 
-    auth?.accessToken ? setIsLoading(false) : verifyRefreshToken();
+    auth ? setIsLoading(false) : verifyRefreshToken();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ function PrivateRoute({ component: Component, ...rest }) {
       {...rest}
       render={(props) =>
         !isLoading ? (
-          auth?.accessToken ? (
+          auth ? (
             <Component {...props} />
           ) : (
             <Redirect

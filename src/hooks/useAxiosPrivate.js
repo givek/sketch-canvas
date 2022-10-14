@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { axiosPrivate } from "../api/axios";
 import useAuth from "./useAuth";
 import useRefreshToken from "./useRefreshToken";
@@ -7,25 +7,32 @@ const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
   const { auth } = useAuth();
 
-  useEffect(() => {
+  React.useEffect(() => {
+    // console.log("useAxiosPrivate useEffect");
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
         if (!config.headers["Authorization"]) {
-          config.headers["Authorization"] = "Bearer " + auth?.accessToken;
-          console.log(config.headers["Authorization"]);
+          config.headers["Authorization"] = "Bearer " + auth;
+          console.log(
+            "reqIntercept: config Auth Headers",
+            config.headers["Authorization"]
+          );
         }
-        console.log("reqInter this is nice");
+        // console.log("reqInter this is nice");
         return config;
       },
       (error) => Promise.reject(error)
     );
 
     const responseIntercept = axiosPrivate.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        console.log("useAxiosPrivate: resIntercept Succ");
+        return response;
+      },
       async (error) => {
-        console.log("henlo response");
+        console.log("ResIntercept: error");
         const prevRequest = error?.config;
-        console.log("prevReq", error?.response?.status, !prevRequest?.sent);
+        // console.log("prevReq", error?.response?.status, !prevRequest?.sent);
         if (error?.response?.status === 403 && !prevRequest?.sent) {
           prevRequest.sent = true;
           const newAccessToken = await refresh();
