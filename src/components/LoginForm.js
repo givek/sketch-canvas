@@ -63,10 +63,13 @@ export const LoginForm = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log(error);
-        console.log(error.response);
+        // console.error("Login error.response", error.response);
+        if (error.response.status === 401) {
+          setErrors({ password: "Invalid email or password." });
+        }
       }
-      alert(error);
+      // alert(error);
+      console.error("Login error", error);
     }
   };
 

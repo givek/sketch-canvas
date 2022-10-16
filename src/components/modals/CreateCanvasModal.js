@@ -37,18 +37,13 @@ export const CreateCanvasModal = (props) => {
 
   const onSumbit = async (data = {}, { setErrors }) => {
     console.log(`form data`, data.name);
-
-    try {
-      createNewCanvasQuery.mutate(data);
-    } catch (error) {
-      // TODO: handle errors
-      if (error.response) {
-        console.log(error.response);
-        console.log(error.response.status);
-        console.log(error.response.data.name);
-      }
-      alert(error);
-    }
+    createNewCanvasQuery.mutate(data, {
+      onError: (error, variables, context) => {
+        if (error.response && error.response.data) {
+          setErrors({ name: error.response.data.message });
+        }
+      },
+    });
   };
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>

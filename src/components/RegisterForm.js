@@ -66,10 +66,14 @@ export const RegisterForm = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log(error);
-        console.log(error.response);
+        // console.error("Register error.response", error.response);
+        if (error.response.status === 409) {
+          setErrors({ email: "Email is invalid or already taken." });
+        }
       }
-      alert(error);
+      console.error("Register error", error);
+
+      // alert(error);
     }
   };
 
