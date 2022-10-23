@@ -5,11 +5,13 @@ import useAuth from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const { auth, setAuth, isLoading, setIsLoading } = useAuth();
+  const { auth, isLoading, setIsLoading } = useAuth();
 
-  const refresh = useRefreshToken(setAuth);
+  const refresh = useRefreshToken();
 
   React.useEffect(() => {
+    console.log("PrivateRoute useEffect");
+
     async function verifyRefreshToken() {
       try {
         await refresh();
