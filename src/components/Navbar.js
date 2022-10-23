@@ -19,7 +19,7 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 
 import { ReactComponent as NayaIcon } from "../naya.svg";
-import CircleIcon from "../icons/circle";
+import CircleIcon from "../icons/CircleIcon";
 
 const NavLink = (props) => (
   <Link
