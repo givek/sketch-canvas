@@ -1,4 +1,4 @@
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -10,12 +10,19 @@ import { Register } from "./pages/Register";
 import { CanvasProvider } from "./contexts/CanvasContext";
 import Sketch from "./pages/Sketch";
 
+const theme = extendTheme({
+  fonts: {
+    heading: `Inter, sans-serif`,
+    body: `Inter, sans-serif`,
+  },
+});
+
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <div className="App">
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <AuthProvider>
           <QueryClientProvider client={queryClient}>
             <Router>
