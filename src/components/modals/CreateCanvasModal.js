@@ -9,10 +9,10 @@ import {
 } from "@chakra-ui/modal";
 import { Button } from "@chakra-ui/button";
 import { Formik, Form } from "formik";
-import { FormikControl } from "../FormikControl";
-import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
+import { FormikControl } from "../FormikControl";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const initialValues = {
   name: "",
@@ -37,18 +37,13 @@ export const CreateCanvasModal = (props) => {
 
   const onSumbit = async (data = {}, { setErrors }) => {
     console.log(`form data`, data.name);
-
-    try {
-      createNewCanvasQuery.mutate(data);
-    } catch (error) {
-      // TODO: handle errors
-      if (error.response) {
-        console.log(error.response);
-        console.log(error.response.status);
-        console.log(error.response.data.name);
-      }
-      alert(error);
-    }
+    createNewCanvasQuery.mutate(data, {
+      onError: (error, variables, context) => {
+        if (error.response && error.response.data) {
+          setErrors({ name: error.response.data.message });
+        }
+      },
+    });
   };
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>

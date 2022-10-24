@@ -3,11 +3,12 @@ import { Formik, Form } from "formik";
 import { Link, Text, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
-import { Link as RouterLink, useHistory } from "react-router-dom";
 import { FormikControl } from "./FormikControl";
 import { ButtonPrimary } from "./ButtonPrimary";
+import { Link as RouterLink } from "react-router-dom";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
+import { useHistory } from "react-router-dom";
 
 const styles = {
   input: {
@@ -62,10 +63,13 @@ export const LoginForm = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log(error);
-        console.log(error.response);
+        // console.error("Login error.response", error.response);
+        if (error.response.status === 401) {
+          setErrors({ password: "Invalid email or password." });
+        }
       }
-      alert(error);
+      // alert(error);
+      console.error("Login error", error);
     }
   };
 

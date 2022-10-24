@@ -3,10 +3,10 @@ import { Formik, Form } from "formik";
 import { Link, Text, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
-import { FormikControl } from "./FormikControl";
-import { ButtonPrimary } from "./ButtonPrimary";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import axios from "../api/axios";
+import { FormikControl } from "./FormikControl";
+import { ButtonPrimary } from "./ButtonPrimary";
 
 const styles = {
   input: {
@@ -50,6 +50,7 @@ const validationSchema = Yup.object({
 });
 
 export const RegisterForm = () => {
+  // const { state } = useLocation();
   const histroy = useHistory();
 
   const onSubmit = async (data = {}, { setErrors }) => {
@@ -65,10 +66,14 @@ export const RegisterForm = () => {
       }
     } catch (error) {
       if (error.response) {
-        console.log(error);
-        console.log(error.response);
+        // console.error("Register error.response", error.response);
+        if (error.response.status === 409) {
+          setErrors({ email: "Email is invalid or already taken." });
+        }
       }
-      alert(error);
+      console.error("Register error", error);
+
+      // alert(error);
     }
   };
 
@@ -80,7 +85,7 @@ export const RegisterForm = () => {
     >
       <Form>
         <FormLabel as="legend" fontSize="22px" mb="28px">
-          Create your fehler account
+          Create your naya account
         </FormLabel>
         <Stack spacing={10}>
           <FormikControl
