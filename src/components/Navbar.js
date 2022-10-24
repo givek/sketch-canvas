@@ -17,7 +17,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-
 import { ReactComponent as NayaIcon } from "../naya.svg";
 import CircleIcon from "../icons/CircleIcon";
 
@@ -41,7 +40,7 @@ export const Navbar = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const Links = [{ name: "Projects", url: `/${props.spaceName}/projects` }];
 
-  console.log(props?.canvases);
+  // console.log(props?.canvases);
   return (
     <Box px="5" boxShadow="md">
       <Flex h={14} alignItems={"center"} justifyContent={"space-between"}>
@@ -63,50 +62,54 @@ export const Navbar = (props) => {
         </HStack>
 
         <HStack alignItems={"center"} spacing={8}>
-          <Menu fontSize="12px">
-            <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
-              USERS
-            </MenuButton>
-            <MenuList fontWeight={400} px={5}>
-              {props.currentCanvas
-                ? props.currentCanvas.collaborators.map((collaborator) => (
-                    <MenuItem key={collaborator._id}>
-                      <CircleIcon fill={collaborator.color} />
-                      <Text
-                        ml={4}
-                      >{`${collaborator.firstName} ${collaborator.lastName}`}</Text>
-                    </MenuItem>
-                  ))
-                : null}
-            </MenuList>
-          </Menu>
-          <Menu fontSize="12px">
-            <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
-              SKETCHES
-            </MenuButton>
-            <MenuList fontWeight={400} px={5}>
-              {props.canvases
-                ? props.canvases.map((canvas) => (
-                    <MenuItem
-                      key={canvas._id}
-                      as={RouterLink}
-                      to={`/sketches/${canvas._id}`}
-                      color={
-                        canvas._id === props?.currentSketchId
-                          ? "#4F00C1"
-                          : "#161616"
-                      }
-                      fontWeight={
-                        canvas._id === props?.currentSketchId ? "700" : "400"
-                      }
-                    >
-                      {canvas.name}
-                    </MenuItem>
-                  ))
-                : null}
-              <MenuItem onClick={props.onOpen}>Create New</MenuItem>
-            </MenuList>
-          </Menu>
+          <Box>
+            <Menu fontSize="12px">
+              <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
+                USERS
+              </MenuButton>
+              <MenuList fontWeight={400} px={5}>
+                {props.currentCanvas
+                  ? props.currentCanvas.collaborators.map((collaborator) => (
+                      <MenuItem key={collaborator._id}>
+                        <CircleIcon fill={collaborator.color} />
+                        <Text
+                          ml={4}
+                        >{`${collaborator.firstName} ${collaborator.lastName}`}</Text>
+                      </MenuItem>
+                    ))
+                  : null}
+              </MenuList>
+            </Menu>
+          </Box>
+          <Box>
+            <Menu fontSize="12px">
+              <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
+                SKETCHES
+              </MenuButton>
+              <MenuList fontWeight={400} px={5}>
+                {props.canvases
+                  ? props.canvases.map((canvas) => (
+                      <MenuItem
+                        key={canvas._id}
+                        as={RouterLink}
+                        to={`/sketches/${canvas._id}`}
+                        color={
+                          canvas._id === props?.currentSketchId
+                            ? "#4F00C1"
+                            : "#161616"
+                        }
+                        fontWeight={
+                          canvas._id === props?.currentSketchId ? "700" : "400"
+                        }
+                      >
+                        {canvas.name}
+                      </MenuItem>
+                    ))
+                  : null}
+                <MenuItem onClick={props.onOpen}>Create New</MenuItem>
+              </MenuList>
+            </Menu>
+          </Box>
           <Heading fontWeight={500} fontSize="14px" color="#161616">
             {`${props.owner?.firstName} ${props.owner?.lastName}`}
           </Heading>
