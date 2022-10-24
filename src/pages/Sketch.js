@@ -1,6 +1,6 @@
+import React from "react";
 import { Box, useDisclosure } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { useParams } from "react-router-dom";
 import { CreateCanvasModal } from "../components/modals/CreateCanvasModal";
 import { Navbar } from "../components/Navbar";
@@ -46,8 +46,14 @@ function Sketch() {
     useCanvas();
 
   React.useLayoutEffect(() => {
+    console.log("useLayoutEffect");
     prepareCanvas(currentUser?.color, currentCanvas?.imgBase64);
-  }, [currentUser, params, currentCanvas]);
+  }, [
+    currentUser?.color,
+    params?.sketchId,
+    currentCanvas?.imgBase64,
+    prepareCanvas,
+  ]);
 
   return (
     <Box bgColor="#F5F5F5" height="100vh">

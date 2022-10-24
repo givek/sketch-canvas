@@ -1,20 +1,21 @@
+import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import React, { useContext, useRef, useState } from "react";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const CanvasContext = React.createContext();
 
 export const CanvasProvider = ({ children }) => {
-  const [isDrawing, setIsDrawing] = useState(false);
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  const [isDrawing, setIsDrawing] = React.useState(false);
+  const canvasRef = React.useRef(null);
+  const contextRef = React.useRef(null);
 
   const axiosPrivate = useAxiosPrivate();
   const updateCurrentCanvasQuery = useMutation((newCanvas) =>
     axiosPrivate.patch(`api/canvas`, newCanvas)
   );
 
-  const prepareCanvas = (strokeStyle, currentCanvas) => {
+  const prepareCanvas = React.useCallback((strokeStyle, currentCanvas) => {
+    console.log("Prepare Canvas");
     const canvas = canvasRef.current;
     canvas.width = 1120 * 2;
     canvas.height = 767 * 2;
@@ -25,7 +26,7 @@ export const CanvasProvider = ({ children }) => {
     context.scale(2, 2);
     context.lineCap = "round";
     // context.strokeStyle = "black";
-    console.log("color", strokeStyle);
+    // console.log("color", strokeStyle);
     context.strokeStyle = strokeStyle ? strokeStyle : "black";
     context.lineWidth = 3;
     contextRef.current = context;
@@ -42,7 +43,7 @@ export const CanvasProvider = ({ children }) => {
 
       image.src = currentCanvas;
     }
-  };
+  }, []);
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
@@ -100,4 +101,4 @@ export const CanvasProvider = ({ children }) => {
   );
 };
 
-export const useCanvas = () => useContext(CanvasContext);
+export const useCanvas = () => React.useContext(CanvasContext);
