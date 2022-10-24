@@ -1,5 +1,5 @@
 import React from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const CanvasContext = React.createContext();
@@ -8,10 +8,16 @@ export const CanvasProvider = ({ children }) => {
   const [isDrawing, setIsDrawing] = React.useState(false);
   const canvasRef = React.useRef(null);
   const contextRef = React.useRef(null);
+  const queryClient = useQueryClient();
 
   const axiosPrivate = useAxiosPrivate();
-  const updateCurrentCanvasQuery = useMutation((newCanvas) =>
-    axiosPrivate.patch(`api/canvas`, newCanvas)
+  const updateCurrentCanvasQuery = useMutation(
+    (newCanvas) => axiosPrivate.patch(`api/canvas`, newCanvas),
+    {
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["current-canvas", data.data._id]);
+      },
+    }
   );
 
   const prepareCanvas = React.useCallback((strokeStyle, currentCanvas) => {
