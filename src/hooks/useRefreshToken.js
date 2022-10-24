@@ -13,10 +13,12 @@ function useRefreshToken() {
       { headers: { "Content-Type": "application/json" }, withCredentials: true }
     );
 
+    console.log("Set Refesh Token");
+
     setAuth((prev) => {
-      console.log("Prev", prev);
-      console.log("Curr", response.data);
-      return { ...prev, accessToken: response.data.accessToken };
+      // console.log("Prev", prev);
+      // console.log("Curr", response.data);
+      return response.data.accessToken;
     });
     return response.data.accessToken;
   };

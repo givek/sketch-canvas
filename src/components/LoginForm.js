@@ -3,12 +3,11 @@ import { Formik, Form } from "formik";
 import { Link, Text, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import { FormikControl } from "./FormikControl";
 import { ButtonPrimary } from "./ButtonPrimary";
-import { Link as RouterLink } from "react-router-dom";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
-import { useHistory } from "react-router-dom";
 
 const styles = {
   input: {
@@ -44,11 +43,11 @@ export const LoginForm = () => {
   // const { login } = useAuth();
   const histroy = useHistory();
 
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const onSubmit = async (data = {}, { setErrors }) => {
     try {
-      console.log(data);
+      // console.log(data);
       const response = await axios.post(`/api/session/`, data, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
@@ -56,12 +55,9 @@ export const LoginForm = () => {
 
       if (response.status === 200) {
         // dispatchToken({ type: SET_TOKEN, token: response.data.token });
-        console.log(response.data);
-        setAuth((prev) => ({
-          ...prev,
-          accessToken: response.data.accessToken,
-        }));
-        console.log("Auth", auth);
+        console.log("Setting Auth Token", response.data);
+        setAuth(response.data.accessToken);
+        // console.log("Auth", auth);
         histroy.push("/sketches");
       }
     } catch (error) {
@@ -110,7 +106,7 @@ export const LoginForm = () => {
           </Link>
         </Text>
         <Text {...styles.text}>
-          Don't have a fehler account? &nbsp;
+          Don't have a naya account? &nbsp;
           <Link to="/register" as={RouterLink} {...styles.link}>
             Create one
           </Link>
