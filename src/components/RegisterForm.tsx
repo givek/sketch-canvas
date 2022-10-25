@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import axios from "../api/axios";
 import FormikControl from "./FormikControl";
-import { ButtonPrimary } from "./ButtonPrimary";
+import ButtonPrimary from "./ButtonPrimary";
 
 const styles = {
   input: {
