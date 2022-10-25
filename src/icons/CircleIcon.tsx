@@ -1,4 +1,8 @@
-function CircleIcon(props) {
+type CircleIconProps = {
+  fill: string;
+};
+
+function CircleIcon(props: CircleIconProps) {
   return (
     <svg
       width="8"
