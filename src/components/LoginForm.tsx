@@ -1,9 +1,8 @@
-import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { Link, Text, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
-import { FormikControl } from "./FormikControl";
+import FormikControl from "./FormikControl";
 import { ButtonPrimary } from "./ButtonPrimary";
 import { Link as RouterLink } from "react-router-dom";
 import axios from "../api/axios";
@@ -39,14 +38,16 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Password is required field."),
 });
 
-export const LoginForm = () => {
+function LoginForm() {
   // const { state } = useLocation();
-  // const { login } = useAuth();
   const histroy = useHistory();
 
-  const { setAuth } = useAuth();
+  const auth = useAuth();
 
-  const onSubmit = async (data = {}, { setErrors }) => {
+  const onSubmit = async (
+    data = {},
+    { setErrors }: FormikHelpers<typeof initialValues>
+  ) => {
     try {
       // console.log(data);
       const response = await axios.post(`/api/session/`, data, {
@@ -57,11 +58,11 @@ export const LoginForm = () => {
       if (response.status === 200) {
         // dispatchToken({ type: SET_TOKEN, token: response.data.token });
         console.log("Setting Auth Token", response.data);
-        setAuth(response.data.accessToken);
+        auth?.setAuth(response.data.accessToken);
         // console.log("Auth", auth);
         histroy.push("/sketches");
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         // console.error("Login error.response", error.response);
         if (error.response.status === 401) {
@@ -104,12 +105,12 @@ export const LoginForm = () => {
 
           <ButtonPrimary name="Login" />
         </Stack>
-        <Text {...styles.text}>
+        <Text fontSize="14px" m="24px" textAlign="center">
           <Link to="/login" as={RouterLink} {...styles.link}>
             Forgot password?
           </Link>
         </Text>
-        <Text {...styles.text}>
+        <Text fontSize="14px" m="24px" textAlign="center">
           Don't have a naya account? &nbsp;
           <Link to="/register" as={RouterLink} {...styles.link}>
             Create one
@@ -118,4 +119,6 @@ export const LoginForm = () => {
       </Form>
     </Formik>
   );
-};
+}
+
+export default LoginForm;
