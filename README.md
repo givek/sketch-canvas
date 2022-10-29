@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+# Sketch App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- Fehler is a project management software which let teams plan, track and manage software developement
+projects. -->
 
-## Available Scripts
+This is the sketch-canvas web client developed to consume the [sketch-canvas-api](https://github.com/givek/sketch-canvas-api/).
 
-In the project directory, you can run:
+## Technologies
 
-### `yarn start`
+- JavaScript
+- ReactJS
+- Chakra UI
+- Formik
+- React Query
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To get a local copy up and running follow these simple steps:
 
-### `yarn test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js
 
-### `yarn build`
+  ```shell
+  $ sudo apt install nodejs
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Create a local copy of this git repository with `git clone` command.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```shell
+   $ git clone https://github.com/givek/fehler_web.git
+   ```
 
-### `yarn eject`
+2. Now, install the dependencies from the `package.json` file.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```shell
+   $ npm install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Finally, start the developement server with the management commnad.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```shell
+   $ npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<!-- ## Screenshots
 
-## Learn More
+- Spaces
+  ![Spaces](../assets/spaces.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Projects
+  ![Projects](../assets/projects.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Kanban Board
+  ![Kanban Board](../assets/kanban-board.png)
 
-### Code Splitting
+- Risk Register
+  ![Risk Register](../assets/risk-register.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Risk Matrix
+  ![Risk Matrix](../assets/risk-matrix.png) -->
 
-### Analyzing the Bundle Size
+## Authors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Vivek Gandharkar - [givek](https://github.com/givek/)
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](../main/LICENSE) file for details
