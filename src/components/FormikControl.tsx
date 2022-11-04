@@ -7,6 +7,7 @@ export type FromikControlProps = {
   type: string;
   placeholder: string;
   styles?: React.CSSProperties;
+  size?: string;
   helpText?: string;
 };
 
