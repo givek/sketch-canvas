@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Modal,
   ModalHeader,
@@ -8,43 +7,81 @@ import {
   ModalFooter,
 } from "@chakra-ui/modal";
 import { Button } from "@chakra-ui/button";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useHistory } from "react-router-dom";
-import { FormikControl } from "../FormikControl";
+import FormikControl from "../FormikControl";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+
+type CreateCanvasModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  onOpen: () => void;
+};
+
+type CanvasResponseData = {
+  name: string;
+  owner: string;
+  path: string;
+  collaborators: string[];
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
 
 const initialValues = {
   name: "",
 };
 
-export const CreateCanvasModal = (props) => {
+export const CreateCanvasModal = (props: CreateCanvasModalProps) => {
   const axiosPrivate = useAxiosPrivate();
   const queryClient = useQueryClient();
   const histroy = useHistory();
-  const createNewCanvasQuery = useMutation(
-    (canvas) => axiosPrivate.post(`api/canvas`, canvas),
+
+  const createNewCanvasQuery = useMutation<
+    CanvasResponseData,
+    any,
+    typeof initialValues
+  >(
+    async (newCanvas) => {
+      const { data } = await axiosPrivate.post<CanvasResponseData>(
+        "api/canvas/",
+        newCanvas
+      );
+      return data;
+    },
     {
-      onSuccess: (data) => {
+      onSuccess: (canvas) => {
         props.onClose();
-        histroy.push(`/sketches/${data.data._id}`);
-        return queryClient.setQueriesData(["canvases"], (oldQueryData) => {
-          return { ...oldQueryData, data: [...oldQueryData.data, data.data] };
-        });
+        histroy.push(`/sketches/${canvas._id}`);
+        return queryClient.setQueriesData<CanvasResponseData>(
+          ["canvases"],
+          (oldQueryData) => {
+            if (oldQueryData) {
+              return { ...oldQueryData, canvas };
+            }
+          }
+        );
       },
     }
   );
 
-  const onSumbit = async (data = {}, { setErrors }) => {
+  const onSumbit = async (
+    data: typeof initialValues,
+    { setErrors }: FormikHelpers<typeof initialValues>
+  ) => {
     console.log(`form data`, data.name);
+
     createNewCanvasQuery.mutate(data, {
-      onError: (error, variables, context) => {
+      onError: (error: any, variables, context) => {
         if (error.response && error.response.data) {
           setErrors({ name: error.response.data.message });
         }
       },
     });
   };
+
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>
       <ModalOverlay />
