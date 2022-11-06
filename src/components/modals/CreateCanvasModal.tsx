@@ -16,7 +16,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 type CreateCanvasModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
+  onOpen?: () => void;
 };
 
 type CanvasResponseData = {
