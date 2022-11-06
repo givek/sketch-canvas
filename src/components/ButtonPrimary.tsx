@@ -1,7 +1,10 @@
-import React from "react";
 import { Button } from "@chakra-ui/button";
 
-export const ButtonPrimary = (props) => {
+type ButtonPrimaryProps = {
+  name: string;
+};
+
+function ButtonPrimary(props: ButtonPrimaryProps) {
   return (
     <Button
       boxShadow="md"
@@ -13,4 +16,6 @@ export const ButtonPrimary = (props) => {
       {props.name}
     </Button>
   );
-};
+}
+
+export default ButtonPrimary;

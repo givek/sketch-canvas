@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, Center, Stack } from "@chakra-ui/layout";
 
-export const FormContainer = (props) => {
+type FormContainerProps = { children: React.ReactNode };
+
+function FormContainer(props: FormContainerProps) {
   return (
     <Center h={[null, "100vh"]}>
       <Stack w={["100%", "416px"]} spacing={6} p={["24px", "0px"]}>
@@ -17,4 +19,6 @@ export const FormContainer = (props) => {
       </Stack>
     </Center>
   );
-};
+}
+
+export default FormContainer;
