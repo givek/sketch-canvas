@@ -5,14 +5,14 @@ import useRefreshToken from "./useRefreshToken";
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
-  const { auth } = useAuth();
+  const auth = useAuth();
 
   React.useEffect(() => {
     // console.log("useAxiosPrivate useEffect");
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!config.headers["Authorization"]) {
-          config.headers["Authorization"] = "Bearer " + auth;
+        if (config.headers && !config.headers["Authorization"]) {
+          config.headers["Authorization"] = "Bearer " + auth?.token;
           console.log(
             "reqIntercept: config Auth Headers",
             config.headers["Authorization"]
