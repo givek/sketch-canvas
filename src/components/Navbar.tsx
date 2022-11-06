@@ -19,8 +19,35 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import { ReactComponent as NayaIcon } from "../naya.svg";
 import CircleIcon from "../icons/CircleIcon";
+import { Canvas } from "../hooks/query/canvas/useCanvases";
+import { CurrentUser } from "../hooks/query/useCurrentUser";
 
-const NavLink = (props) => (
+export type Collaborator = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  color: string;
+};
+
+export type CurrentCanvas = {
+  _id: string;
+  name: string;
+  owner: string;
+  collaborators: Collaborator[];
+  imgBase64: string;
+};
+
+type NavbarProps = {
+  canvases: Canvas[];
+  owner: CurrentUser;
+  currentCanvas: CurrentCanvas;
+  onOpen: () => void;
+  currentSketchId: string;
+};
+
+type NavLinkProps = { url: string; children: React.ReactNode };
+
+const NavLink = (props: NavLinkProps) => (
   <Link
     px={2}
     py={1}
@@ -36,7 +63,7 @@ const NavLink = (props) => (
   </Link>
 );
 
-export const Navbar = (props) => {
+export const Navbar = (props: NavbarProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // const Links = [{ name: "Projects", url: `/${props.spaceName}/projects` }];
 
@@ -54,7 +81,7 @@ export const Navbar = (props) => {
         <HStack spacing={8} alignItems={"center"}>
           <Box>
             <Heading fontSize={["24px"]} fontWeight="bold" color="#4F00C1">
-              <NavLink url={`/spaces`}>
+              <NavLink url={`/sketches`}>
                 <NayaIcon />
               </NavLink>
             </Heading>
@@ -63,11 +90,17 @@ export const Navbar = (props) => {
 
         <HStack alignItems={"center"} spacing={8}>
           <Box>
-            <Menu fontSize="12px">
-              <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
+            <Menu>
+              <MenuButton
+                as={Button}
+                size="sm"
+                fontSize="12px"
+                fontWeight={500}
+                px={6}
+              >
                 USERS
               </MenuButton>
-              <MenuList fontWeight={400} px={5}>
+              <MenuList fontSize="12px" fontWeight={400} px={5}>
                 {props.currentCanvas
                   ? props.currentCanvas.collaborators.map((collaborator) => (
                       <MenuItem key={collaborator._id}>
@@ -82,11 +115,17 @@ export const Navbar = (props) => {
             </Menu>
           </Box>
           <Box>
-            <Menu fontSize="12px">
-              <MenuButton as={Button} size="sm" fontWeight={500} px={6}>
+            <Menu>
+              <MenuButton
+                fontSize="12px"
+                as={Button}
+                size="sm"
+                fontWeight={500}
+                px={6}
+              >
                 SKETCHES
               </MenuButton>
-              <MenuList fontWeight={400} px={5}>
+              <MenuList fontSize="12px" fontWeight={400} px={5}>
                 {props.canvases
                   ? props.canvases.map((canvas) => (
                       <MenuItem
