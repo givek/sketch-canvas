@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../useAxiosPrivate";
 
-type Canvas = {
+export type Canvas = {
   _id: string;
   name: string;
   owner: string;
@@ -15,7 +15,7 @@ type Canvas = {
 function useCanvases() {
   const axiosPrivate = useAxiosPrivate();
 
-  function fetchCanvases() {
+  async function fetchCanvases() {
     return axiosPrivate.get<Canvas[]>(`/api/canvas`).then((res) => res.data);
   }
 

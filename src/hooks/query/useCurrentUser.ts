@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../useAxiosPrivate";
 
-type CurrentUser = {
+export type CurrentUser = {
   _id: string;
   email: string;
   firstName: string;
