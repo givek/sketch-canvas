@@ -4,8 +4,14 @@ import { Spinner } from "@chakra-ui/react";
 import useAuth from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
 
-function PrivateRoute({ component: Component, ...rest }) {
-  const { auth, isLoading, setIsLoading } = useAuth();
+type PrivateRouteProps = {
+  path: string;
+  exact: boolean;
+  component: React.ComponentType<any>;
+};
+
+function PrivateRoute({ component: Component, ...rest }: PrivateRouteProps) {
+  const auth = useAuth();
 
   const refresh = useRefreshToken();
 
@@ -18,18 +24,18 @@ function PrivateRoute({ component: Component, ...rest }) {
       } catch (error) {
         console.error(error);
       } finally {
-        setIsLoading(false);
+        auth?.setIsLoading(false);
       }
     }
 
-    auth ? setIsLoading(false) : verifyRefreshToken();
-  }, [auth, setIsLoading, refresh]);
+    auth?.token ? auth?.setIsLoading(false) : verifyRefreshToken();
+  }, [auth, refresh]);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isLoading ? (
+        !auth?.isLoading ? (
           auth ? (
             <Component {...props} />
           ) : (
