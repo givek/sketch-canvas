@@ -7,15 +7,24 @@ function useRefreshToken() {
   // console.log("useRefreshToken setAuth: ", setAuth);
 
   const refresh = async () => {
-    const response = await axios.post("/api/session/refresh", {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    });
+    console.log("start refresh");
 
-    console.log("Set Refesh Token");
-    auth?.setAuth(response.data.accessToken);
+    try {
+      // second parameter of the axios post req is the req body.
+      const response = await axios.post(
+        "/api/session/refresh",
+        {},
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
 
-    return response.data.accessToken;
+      auth?.setAuth(response.data.accessToken);
+      return response.data.accessToken;
+    } catch (error) {
+      console.error("useRefreshToken-refresh error", error);
+    }
   };
 
   return refresh;
