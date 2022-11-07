@@ -1,12 +1,11 @@
-import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import { Link, Text, Stack } from "@chakra-ui/layout";
 import { FormLabel } from "@chakra-ui/form-control";
 import * as Yup from "yup";
-import { FormikControl } from "./FormikControl";
-import { ButtonPrimary } from "./ButtonPrimary";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import axios from "../api/axios";
+import FormikControl from "./FormikControl";
+import ButtonPrimary from "./ButtonPrimary";
 
 const styles = {
   input: {
@@ -49,11 +48,14 @@ const validationSchema = Yup.object({
     .required("Last name is a required field."),
 });
 
-export const RegisterForm = () => {
+function RegisterForm() {
   // const { state } = useLocation();
   const histroy = useHistory();
 
-  const onSubmit = async (data = {}, { setErrors }) => {
+  const onSubmit = async (
+    data = {},
+    { setErrors }: FormikHelpers<typeof initialValues>
+  ) => {
     console.log(data);
     try {
       const response = await axios.post(`/api/users/`, data);
@@ -64,7 +66,7 @@ export const RegisterForm = () => {
         console.log("response.data.token", response.data);
         histroy.push("/login");
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error.response) {
         // console.error("Register error.response", error.response);
         if (error.response.status === 409) {
@@ -134,4 +136,6 @@ export const RegisterForm = () => {
       </Form>
     </Formik>
   );
-};
+}
+
+export default RegisterForm;
