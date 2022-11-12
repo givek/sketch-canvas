@@ -87,7 +87,7 @@ function RegisterForm() {
     >
       <Form>
         <FormLabel as="legend" fontSize="22px" mb="28px">
-          Create your naya account
+          Create your canvas account
         </FormLabel>
         <Stack spacing={10}>
           <FormikControl

@@ -17,7 +17,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
-import { ReactComponent as NayaIcon } from "../naya.svg";
+import { ReactComponent as CanvasIcon } from "../canvas.svg";
 import CircleIcon from "../icons/CircleIcon";
 import { Canvas } from "../hooks/query/canvas/useCanvases";
 import { CurrentUser } from "../hooks/query/useCurrentUser";
@@ -82,7 +82,7 @@ export const Navbar = (props: NavbarProps) => {
           <Box>
             <Heading fontSize={["24px"]} fontWeight="bold" color="#4F00C1">
               <NavLink url={`/sketches`}>
-                <NayaIcon />
+                <CanvasIcon />
               </NavLink>
             </Heading>
           </Box>

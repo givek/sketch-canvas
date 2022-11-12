@@ -111,7 +111,7 @@ function LoginForm() {
           </Link>
         </Text>
         <Text fontSize="14px" m="24px" textAlign="center">
-          Don't have a naya account? &nbsp;
+          Don't have a canvas account? &nbsp;
           <Link to="/register" as={RouterLink} {...styles.link}>
             Create one
           </Link>

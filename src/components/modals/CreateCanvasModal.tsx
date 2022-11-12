@@ -96,7 +96,7 @@ export const CreateCanvasModal = (props: CreateCanvasModalProps) => {
                 name="name"
                 label="Canvas name"
                 size="sm"
-                placeholder="Naya"
+                placeholder="Canvas"
                 helpText="Choose something familiar like your team name."
               />
             </ModalBody>
