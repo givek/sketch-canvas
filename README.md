@@ -1,7 +1,6 @@
 # Sketch App
 
-<!-- Fehler is a project management software which let teams plan, track and manage software developement
-projects. -->
+The Canvas app lets you create multiple collaborative virtual whiteboards for free-hand sketching.
 
 This is the sketch-canvas web client developed to consume the [sketch-canvas-api](https://github.com/givek/sketch-canvas-api/).
 
@@ -45,22 +44,10 @@ To get a local copy up and running follow these simple steps:
    $ npm start
    ```
 
-<!-- ## Screenshots
+## Screenshots
 
-- Spaces
+- Canvas
   ![Spaces](../assets/spaces.png)
-
-- Projects
-  ![Projects](../assets/projects.png)
-
-- Kanban Board
-  ![Kanban Board](../assets/kanban-board.png)
-
-- Risk Register
-  ![Risk Register](../assets/risk-register.png)
-
-- Risk Matrix
-  ![Risk Matrix](../assets/risk-matrix.png) -->
 
 ## Authors
 
