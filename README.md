@@ -47,7 +47,7 @@ To get a local copy up and running follow these simple steps:
 ## Screenshots
 
 - Canvas
-  ![Spaces](../assets/spaces.png)
+  ![Canvas](../assets/canvas.png)
 
 ## Authors
 
