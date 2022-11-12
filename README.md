@@ -1,4 +1,4 @@
-# Sketch App
+# Canvas App
 
 The Canvas app lets you create multiple collaborative virtual whiteboards for free-hand sketching.
 
